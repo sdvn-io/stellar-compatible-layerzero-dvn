@@ -6,6 +6,7 @@ import {
   ChevronRight,
   CircleDot,
   Fingerprint,
+  Github,
   Orbit,
   RadioTower,
   ShieldCheck,
@@ -13,6 +14,7 @@ import {
 
 const OAPP_URL = "https://oapp.sdvn.io";
 const DOCS_URL = "https://docs.sdvn.io";
+const GITHUB_URL = "https://github.com/sdvn-io/stellar-compatible-layerzero-dvn";
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
@@ -38,6 +40,7 @@ function App() {
         <a href="#network">Network</a>
         <a href="#architecture">Architecture</a>
         <a href={DOCS_URL} {...external}>Docs <ArrowUpRight size={13} /></a>
+        <a href={GITHUB_URL} {...external}>GitHub <Github size={13} /></a>
       </nav>
       <a className="nav-cta" href={OAPP_URL} {...external}>
         Launch OApp <ArrowUpRight size={15} />
@@ -55,7 +58,7 @@ function App() {
           <a className="button button-primary" href={OAPP_URL} {...external}>
             Launch OApp <ArrowUpRight size={18} />
           </a>
-          <a className="button button-secondary" href={DOCS_URL} {...external}>
+          <a className="button button-secondary" href={GITHUB_URL} {...external}>
             Read documentation <BookOpen size={17} />
           </a>
         </div>
@@ -155,6 +158,7 @@ function App() {
       <div>
         <a href={OAPP_URL} {...external}>OApp <ArrowUpRight size={12} /></a>
         <a href={DOCS_URL} {...external}>Documentation <ArrowUpRight size={12} /></a>
+        <a href={GITHUB_URL} {...external}>GitHub <Github size={12} /></a>
       </div>
     </footer>
   </div>;
