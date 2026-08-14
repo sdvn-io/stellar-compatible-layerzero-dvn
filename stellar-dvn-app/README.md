@@ -25,7 +25,7 @@ Both configurations provide the Vite SPA fallback, immutable caching for hashed 
 
 The relay defaults its browser CORS allowlist to `https://oapp.sdvn.io` and `http://localhost:5173`. Override `CORS_ORIGINS` with a comma-separated list when additional trusted frontend origins are required.
 
-Deploy `docs.sdvn.io` through Mintlify as a monorepo project with `/documentation` as the documentation path. That directory contains its own `docs.json` and does not require a Vercel route.
+Deploy `docs.sdvn.io` through Mintlify with the repository root as the documentation path. The root-level `docs.json` references the pages under `documentation/` and does not require a Vercel route.
 
 ## What the demo proves
 

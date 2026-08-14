@@ -8,16 +8,16 @@ This repository demonstrates bidirectional arbitrary-message delivery between **
 The deployed demo accepts a UTF-8 string on either chain, transports its exact bytes, and stores the decoded message plus source metadata in the destination OApp. It replaces the earlier counter-only demonstration with an application payload that is easy to inspect and verify.
 
 <CardGroup cols={2}>
-  <Card title="Deployed contracts" icon="cube" href="/contracts/deployments">
+  <Card title="Deployed contracts" icon="cube" href="/documentation/contracts/deployments">
     Every Stellar and Sepolia address, its role, and its explorer link.
   </Card>
-  <Card title="End-to-end evidence" icon="circle-check" href="/evidence/e2e">
+  <Card title="End-to-end evidence" icon="circle-check" href="/documentation/evidence/e2e">
     Source sends, DVN verification, ULN commits, and destination execution transactions.
   </Card>
-  <Card title="Read the exact message" icon="message" href="/operations/read-messages">
+  <Card title="Read the exact message" icon="message" href="/documentation/operations/read-messages">
     Decode Stellar `Bytes` as UTF-8 or read the Sepolia `string` directly.
   </Card>
-  <Card title="Nonce recovery" icon="rotate" href="/operations/nonce-recovery">
+  <Card title="Nonce recovery" icon="rotate" href="/documentation/operations/nonce-recovery">
     Understand ordered delivery and the recovery path for missing nonces.
   </Card>
 </CardGroup>
