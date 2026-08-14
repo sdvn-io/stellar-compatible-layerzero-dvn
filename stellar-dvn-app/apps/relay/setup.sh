@@ -2,7 +2,7 @@
 
 SERVICE_NAME="sdvn-relay"
 REPO_DIR="git@github.com:sdvn-io/stellar-compatible-layerzero-dvn.git"
-APP_DIR="/home/tinkerpal/stellar-compatible-layerzero-dvn"
+APP_DIR="/home/tinkerpal/stellar-compatible-layerzero-dvn/stellar-dvn-app"
 RELAY_DIR="/home/tinkerpal/stellar-compatible-layerzero-dvn/stellar-dvn-app/apps/relay"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
 ENV_FILE="${RELAY_DIR}/.env"
