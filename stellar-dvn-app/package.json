@@ -1,0 +1,10 @@
+{
+  "name": "stellar-layerzero-message-app",
+  "private": true,
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {
+    "dev": "pnpm --parallel --recursive dev",
+    "build": "pnpm --filter @stellar-dvn/relay build && pnpm --filter @stellar-dvn/web build && pnpm --filter @stellar-dvn/landing build",
+    "typecheck": "pnpm --parallel --recursive typecheck"
+  }
+}

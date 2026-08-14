@@ -1,0 +1,36 @@
+{
+  "name": "stellar-dvn-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "compile:evm": "hardhat compile",
+    "compile:stellar-message": "cargo build --manifest-path contracts/stellar-message/Cargo.toml --target wasm32v1-none --release",
+    "deploy:sepolia": "hardhat deploy --network sepolia",
+    "configure:sepolia-peer": "hardhat run scripts/configure-sepolia-peer.ts --network sepolia",
+    "configure:sepolia-receive-dvn": "hardhat run scripts/configure-sepolia-receive-dvn.ts --network sepolia",
+    "inspect:sepolia-path": "hardhat run scripts/inspect-sepolia-path.ts --network sepolia",
+    "inspect:sepolia-message": "hardhat run scripts/inspect-sepolia-message.ts --network sepolia",
+    "encode:stellar-uln-config": "ts-node scripts/encode-stellar-uln-config.ts",
+    "send:sepolia-message": "hardhat run scripts/send-sepolia-increment.ts --network sepolia",
+    "relay:stellar-to-sepolia": "hardhat run scripts/relay-stellar-to-sepolia.ts --network sepolia",
+    "attest:stellar": "ts-node scripts/stellar-dvn-attest.ts",
+    "test:evm": "hardhat test"
+  },
+  "devDependencies": {
+    "@layerzerolabs/lz-definitions": "^3.0.148",
+    "@layerzerolabs/lz-evm-protocol-v2": "^3.0.148",
+    "@layerzerolabs/lz-v2-utilities": "^3.0.148",
+    "@layerzerolabs/oapp-evm": "^0.4.1",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@stellar/stellar-sdk": "^16.2.0",
+    "@types/node": "^26.2.0",
+    "dotenv": "^16.4.1",
+    "ethers": "^6.13.0",
+    "hardhat": "^2.22.10",
+    "hardhat-deploy": "^0.12.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.4"
+  }
+}

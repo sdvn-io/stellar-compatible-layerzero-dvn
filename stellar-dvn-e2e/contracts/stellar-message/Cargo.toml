@@ -1,0 +1,28 @@
+[package]
+name = "stellar-message-oapp"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { version = "25.1.1", features = ["hazmat-address", "hazmat-crypto"] }
+soroban-sdk-macros = "=25.1.1"
+endpoint-v2 = { path = "../../../stellar-dvn-reference/contracts/protocol/stellar/contracts/endpoint-v2", default-features = false, features = ["library"] }
+utils = { path = "../../../stellar-dvn-reference/contracts/common/utils/stellar/common-utils" }
+common-macros = { path = "../../../stellar-dvn-reference/contracts/common/utils/stellar/common-utils-macros" }
+oapp = { path = "../../../stellar-dvn-reference/apps/oapp-app/contracts/stellar/contracts" }
+oapp-macros = { path = "../../../stellar-dvn-reference/apps/oapp-app/contracts/stellar/macros" }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true

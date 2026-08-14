@@ -1,0 +1,50 @@
+---
+title: "Deployed contracts"
+description: "Complete Stellar testnet and Sepolia deployment registry with explorer links."
+---
+
+The canonical machine-readable registry is `stellar-dvn-e2e/config/networks.json`. The tables below distinguish project deployments from LayerZero infrastructure dependencies and non-contract verifier accounts.
+
+## Project contracts
+
+| Network | Contract | Address | Notes |
+| --- | --- | --- | --- |
+| Stellar testnet | Message OApp | [`CCJZEMQQ263PRQZ4ZHDELD62DOQKJQEOXF267TOE45PVWQRXCIMDR6WX`](https://stellar.expert/explorer/testnet/contract/CCJZEMQQ263PRQZ4ZHDELD62DOQKJQEOXF267TOE45PVWQRXCIMDR6WX) | Current arbitrary-message receiver/sender |
+| Sepolia | Message OApp | [`0x4e5cEda4702B5568618F238E735f02F0b149c90F`](https://sepolia.etherscan.io/address/0x4e5cEda4702B5568618F238E735f02F0b149c90F) | Current arbitrary-message receiver/sender |
+| Stellar testnet | Custom/provider DVN | [`CC76R4VVTLV72V55BCW4A35EZPYOY4CVQTTMVXPYGUFX74LDQDZ7GQC3`](https://stellar.expert/explorer/testnet/contract/CC76R4VVTLV72V55BCW4A35EZPYOY4CVQTTMVXPYGUFX74LDQDZ7GQC3) | Project DVN used by the message OApp configuration |
+| Stellar testnet | Legacy counter OApp | [`CDQQSAAJT2LJXVUGMKV56F2FK3Y6LLRSXWKQSNSZBXPZYIYW72BSJKF3`](https://stellar.expert/explorer/testnet/contract/CDQQSAAJT2LJXVUGMKV56F2FK3Y6LLRSXWKQSNSZBXPZYIYW72BSJKF3) | Previous counter demonstration |
+| Sepolia | Legacy bidirectional counter OApp | [`0x3DaEc253DABfc55045732079b76721055E06Dc2c`](https://sepolia.etherscan.io/address/0x3DaEc253DABfc55045732079b76721055E06Dc2c) | Previous counter demonstration |
+| Sepolia | Legacy forward-only OApp | [`0x374B566715D7c14E1621e8566eD5DDd81AC02B2B`](https://sepolia.etherscan.io/address/0x374B566715D7c14E1621e8566eD5DDd81AC02B2B) | Superseded forward-only demonstration |
+
+## Stellar LayerZero infrastructure
+
+| Contract | Address | Role |
+| --- | --- | --- |
+| Endpoint V2 | [`CALTBA5S6GRJEHAXFP45LGGLKWWAF7HTZCPNUBUJF2HWWRRLQNV35AIV`](https://stellar.expert/explorer/testnet/contract/CALTBA5S6GRJEHAXFP45LGGLKWWAF7HTZCPNUBUJF2HWWRRLQNV35AIV) | Packet send, receive, ordering, and OApp dispatch |
+| Send/Receive ULN302 | [`CCMLPCAWCPIIMXOHJJKU3NZLOFTT2O6QTB2UUFPN6SEHLK35QRHVKKMB`](https://stellar.expert/explorer/testnet/contract/CCMLPCAWCPIIMXOHJJKU3NZLOFTT2O6QTB2UUFPN6SEHLK35QRHVKKMB) | Security configuration and verification state |
+| Executor | [`CCAVZ7ESAV3PDJ6PISRCXVZCXFFH4NGI7K7MVMZZDR33LC5AD3UPZATT`](https://stellar.expert/explorer/testnet/contract/CCAVZ7ESAV3PDJ6PISRCXVZCXFFH4NGI7K7MVMZZDR33LC5AD3UPZATT) | Destination packet execution |
+| Executor helper | [`CANJCMHRRXEBM46675TSPJIFUVPW7PDOCBLMWS7QPO5TCBHBL7JC4CDL`](https://stellar.expert/explorer/testnet/contract/CANJCMHRRXEBM46675TSPJIFUVPW7PDOCBLMWS7QPO5TCBHBL7JC4CDL) | Executor support contract |
+| Default DVN | [`CBZ4QEWVC7EGNT5KDQAMPKP5PGIUEKONDEB767MOQSZDFPPLM6Q6LQQ3`](https://stellar.expert/explorer/testnet/contract/CBZ4QEWVC7EGNT5KDQAMPKP5PGIUEKONDEB767MOQSZDFPPLM6Q6LQQ3) | Infrastructure default; not the custom message-OApp DVN |
+
+## Sepolia LayerZero infrastructure
+
+| Contract/account | Address | Role |
+| --- | --- | --- |
+| Endpoint V2 | [`0x6EDCE65403992e310A62460808c4b910D972f10f`](https://sepolia.etherscan.io/address/0x6EDCE65403992e310A62460808c4b910D972f10f) | Packet send, receive, ordering, and OApp dispatch |
+| Receive ULN302 | [`0xdAf00F5eE2158dD58E0d3857851c432E34A3A851`](https://sepolia.etherscan.io/address/0xdAf00F5eE2158dD58E0d3857851c432E34A3A851) | Destination verification state |
+| Test verifier EOA | [`0xAC57cbcd88f4BF925F7BA506bc0eF168F2D68B2B`](https://sepolia.etherscan.io/address/0xAC57cbcd88f4BF925F7BA506bc0eF168F2D68B2B) | Required verifier for the demo receive configuration |
+
+<Warning>
+The Sepolia test verifier is an externally owned account, not a deployed contract and not a decentralized production DVN. It is listed because it is security-critical configuration.
+</Warning>
+
+## Binary identifiers
+
+Cross-chain peer configuration uses 32-byte identifiers:
+
+| Contract | 32-byte value |
+| --- | --- |
+| Stellar message OApp | `0x93923210d7b6f8c33cc9c6458fda1ba0a4c08eb975efcdc4e75f5b4237121838` |
+| Sepolia message OApp | `0x0000000000000000000000004e5ceda4702b5568618f238e735f02f0b149c90f` |
+| Legacy Stellar counter OApp | `0xe10900099e969bd68662abdf174556f1e5ae32bd950936590ddf9c2316fe8324` |
+

@@ -1,0 +1,75 @@
+---
+title: "End-to-end evidence"
+description: "Explorer-linked source sends, verification, commits, execution, and ordered recovery tests."
+---
+
+Each complete delivery has four observable phases: source send, DVN verification, destination ULN commit, and destination execution.
+
+## Sepolia to Stellar
+
+Message: `Deployed message OApp: Sepolia to Stellar`
+
+GUID: `0xc74c7ffa12d36f42e46aa8bad5f64488b8e56a5c8f5e2c3e009e515827504af5`
+
+| Phase | Transaction |
+| --- | --- |
+| Source send | [`0x121216aa26c15f93038c43c97a7ce7184ed1b5cec459f3ebe350fa6d3ac90fdf`](https://sepolia.etherscan.io/tx/0x121216aa26c15f93038c43c97a7ce7184ed1b5cec459f3ebe350fa6d3ac90fdf) |
+| Stellar DVN verification | [`0b86036239c1d014c98797929bd221b17413d080e2dd9714167919ff0bdcc983`](https://stellar.expert/explorer/testnet/tx/0b86036239c1d014c98797929bd221b17413d080e2dd9714167919ff0bdcc983) |
+| Stellar ULN commit | [`156a9e096092081019fcf07651f77f6e847059f2ec9a788a2d7ba8c7562b16f0`](https://stellar.expert/explorer/testnet/tx/156a9e096092081019fcf07651f77f6e847059f2ec9a788a2d7ba8c7562b16f0) |
+| Stellar destination execution | [`f5bf67aab46b94be6b72281859b08553526594eb136f0ed1139f0dd6241fa06f`](https://stellar.expert/explorer/testnet/tx/f5bf67aab46b94be6b72281859b08553526594eb136f0ed1139f0dd6241fa06f) |
+
+## Stellar to Sepolia
+
+Message: `Deployed message OApp: Stellar to Sepolia`
+
+GUID: `0x7e1f2002f61cb1c8f52ca828fb2f8733596a9f35cef55416644a5cedd510650a`
+
+| Phase | Transaction |
+| --- | --- |
+| Source send | [`320d674ca60f2271b9ed9ba6369474cbccba2df5d097ec90992b48149ab3501f`](https://stellar.expert/explorer/testnet/tx/320d674ca60f2271b9ed9ba6369474cbccba2df5d097ec90992b48149ab3501f) |
+| Sepolia DVN verification | [`0xe95af3796a028e34320471edec12c293dd2fc067cf7c7f7b04952033a9c76cea`](https://sepolia.etherscan.io/tx/0xe95af3796a028e34320471edec12c293dd2fc067cf7c7f7b04952033a9c76cea) |
+| Sepolia ULN commit | [`0x3867824b338132a821a78438c70dfd8ddd1f48d5eaea4f0f3e43cf81320ed3b9`](https://sepolia.etherscan.io/tx/0x3867824b338132a821a78438c70dfd8ddd1f48d5eaea4f0f3e43cf81320ed3b9) |
+| Sepolia destination execution | [`0xec4dc8ac814e5c9cd41d291bfb0fc8deb498e73bb45e59ba18817e0cf9bc94ba`](https://sepolia.etherscan.io/tx/0xec4dc8ac814e5c9cd41d291bfb0fc8deb498e73bb45e59ba18817e0cf9bc94ba) |
+
+## Multiline message and manual nonce recovery
+
+The following payload was transported without losing line breaks:
+
+```text
+Hello across LayerZero
+THIS IS AN END-2-END TEST
+EWFHEWFOEWFOE
+```
+
+Nonce 3 was initially blocked because nonce 2 had not executed.
+
+| Packet | Phase | Transaction |
+| --- | --- | --- |
+| Nonce 2 | Source send | [`0x0dd307b30a55624a966c5afda2ad47c244911b4197fc6a3623818ad443d6ff90`](https://sepolia.etherscan.io/tx/0x0dd307b30a55624a966c5afda2ad47c244911b4197fc6a3623818ad443d6ff90) |
+| Nonce 2 | DVN verify | [`65efd7a5c5367d531f188d9cfc11645533b65602de266b3b522b914fe4b8b9f8`](https://stellar.expert/explorer/testnet/tx/65efd7a5c5367d531f188d9cfc11645533b65602de266b3b522b914fe4b8b9f8) |
+| Nonce 2 | ULN commit | [`5f5b73b20d4385c3f5c93944dd8e9b53a47c981622ab0ef12c5bedb539eeccd2`](https://stellar.expert/explorer/testnet/tx/5f5b73b20d4385c3f5c93944dd8e9b53a47c981622ab0ef12c5bedb539eeccd2) |
+| Nonce 2 | Destination execution | [`9388da99a3c4da80bd31ff29cf58066b91f5c96daeffeb3282a31577994ff139`](https://stellar.expert/explorer/testnet/tx/9388da99a3c4da80bd31ff29cf58066b91f5c96daeffeb3282a31577994ff139) |
+| Nonce 3 | Source send | [`0xbc877cd142f60e963b4891df2971dd60c32349705564f3c7c8cb72c35782a978`](https://sepolia.etherscan.io/tx/0xbc877cd142f60e963b4891df2971dd60c32349705564f3c7c8cb72c35782a978) |
+| Nonce 3 | DVN verify | [`ee585c3a10e5566bd99bbb9214503ec9d986e2f4d01884e8f2d9e9f2cef1c852`](https://stellar.expert/explorer/testnet/tx/ee585c3a10e5566bd99bbb9214503ec9d986e2f4d01884e8f2d9e9f2cef1c852) |
+| Nonce 3 | ULN commit | [`e86c8106b391189c3b47976d535a95aa77592adc71fdf31267415ff8067473af`](https://stellar.expert/explorer/testnet/tx/e86c8106b391189c3b47976d535a95aa77592adc71fdf31267415ff8067473af) |
+| Nonce 3 | Destination execution | [`d30548d81a9d6b63ed2bb42db06c958fbd80a4aeac57e75cbfb680bb1d86d861`](https://stellar.expert/explorer/testnet/tx/d30548d81a9d6b63ed2bb42db06c958fbd80a4aeac57e75cbfb680bb1d86d861) |
+
+Nonce 3 GUID: `0x4a9e4cda95d748b683a286e45f2f836180c55a8463e415aece83ec3b474341e5`
+
+## Automatic backfill validation
+
+The relay later detected nonce 5 while nonce 4 was missing, recovered nonce 4, and then delivered nonce 5.
+
+| Packet | Phase | Transaction |
+| --- | --- | --- |
+| Nonce 4 | Source send | [`0x1f61797a0cd40cdfb3416a2ee2c2d2529b3620d26c25ebd06efce03e4d83bc93`](https://sepolia.etherscan.io/tx/0x1f61797a0cd40cdfb3416a2ee2c2d2529b3620d26c25ebd06efce03e4d83bc93) |
+| Nonce 4 | Destination execution | [`b90fee6baaeadca9ae8ec9f6c4a367b2e2344ebf2c88b11d54f25b004c1342f1`](https://stellar.expert/explorer/testnet/tx/b90fee6baaeadca9ae8ec9f6c4a367b2e2344ebf2c88b11d54f25b004c1342f1) |
+| Nonce 5 | Source send | [`0x70b2c65adcfd9c6ebd96075e6ee4fc08ff52da574bf6a71a8f8ff376370fa086`](https://sepolia.etherscan.io/tx/0x70b2c65adcfd9c6ebd96075e6ee4fc08ff52da574bf6a71a8f8ff376370fa086) |
+| Nonce 5 | DVN verify | [`18f8e0d1af42d18b8837c184675fde80d0e062bee1c3833f07dfa2236e6abdb1`](https://stellar.expert/explorer/testnet/tx/18f8e0d1af42d18b8837c184675fde80d0e062bee1c3833f07dfa2236e6abdb1) |
+| Nonce 5 | ULN commit | [`930103acac88a45f6594bb2ef739473270e39efac4dee8df72063a0811e46ec1`](https://stellar.expert/explorer/testnet/tx/930103acac88a45f6594bb2ef739473270e39efac4dee8df72063a0811e46ec1) |
+| Nonce 5 | Destination execution | [`bdc13f309510d92187c63802137fa647417c8263ac101773678f085193e244b0`](https://stellar.expert/explorer/testnet/tx/bdc13f309510d92187c63802137fa647417c8263ac101773678f085193e244b0) |
+
+Nonce 5 GUID: `0x60abe37e176fe40b77401afce1e8ffb30e40c06debfb1184a99c1fdfda50ba65`
+
+After ordered execution, the Stellar message OApp's received count was `5`.
+

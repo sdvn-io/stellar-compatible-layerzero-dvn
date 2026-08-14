@@ -1,0 +1,47 @@
+---
+title: "Repository map"
+description: "What each publishable directory contains and which local artifacts must remain private."
+---
+
+The repository is split into the on-chain implementation, deployment workspace, demo application, and a pinned upstream reference tree.
+
+| Directory | Purpose | Publish |
+| --- | --- | --- |
+| `layerzero-stellar/` | Stellar DVN contracts, supporting crates, tests, and architecture documentation | Yes |
+| `stellar-dvn-e2e/` | Stellar and EVM OApps, deployment/configuration scripts, network manifest, and test evidence | Yes |
+| `stellar-dvn-app/` | Browser demo and relay service | Yes |
+| `stellar-dvn-reference/` | Pinned LayerZero Stellar reference sources required by the build | Yes |
+
+## Important entry points
+
+| Path | Description |
+| --- | --- |
+| `stellar-dvn-e2e/config/networks.json` | Canonical deployed-address manifest |
+| `stellar-dvn-e2e/contracts/stellar-message-oapp/` | Soroban arbitrary-message OApp |
+| `stellar-dvn-e2e/contracts/evm/MessageOApp.sol` | Solidity arbitrary-message OApp |
+| `stellar-dvn-e2e/scripts/` | Deployment, configuration, and delivery scripts |
+| `stellar-dvn-app/apps/web/` | MetaMask and Freighter user interface |
+| `stellar-dvn-app/apps/relay/` | Testnet verification, commit, execution, and recovery relay |
+| `layerzero-stellar/docs/ARCHITECTURE.md` | Detailed DVN design and trust model |
+
+## Never publish secrets
+
+The repository-level and project-level `.gitignore` files exclude common secret and build artifacts. Before pushing, still inspect the staged files:
+
+```bash
+git status --short
+git diff --cached --name-only
+```
+
+Do not commit:
+
+- `.env` files or copied environment values
+- Stellar identities and `.stellar/` key material
+- private keys, seed phrases, keystores, or relay signer secrets
+- `node_modules/`, Rust `target/`, generated WASM build output, or local logs
+- local `.vercel/` project metadata
+- local backup directories and temporary deployment artifacts
+
+<Info>
+Contract addresses, public transaction hashes, public RPC network names, and explorer URLs are not secrets. Private signing material is.
+</Info>

@@ -1,0 +1,35 @@
+# Secrets and local Stellar identities
+.env
+.env.*
+!.env.example
+.stellar/
+.soroban/
+secrets/
+keys/
+*.pem
+*.key
+
+# Dependencies and generated output
+node_modules/
+**/target/
+artifacts/
+cache/
+dist/
+coverage/
+*.tsbuildinfo
+*.wasm
+*.wasm.gz
+*.wasm.opt
+*.xdr
+
+# Local deployment records; public addresses are recorded in config/networks.json
+deployments/
+
+# Logs and editor files
+*.log
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~

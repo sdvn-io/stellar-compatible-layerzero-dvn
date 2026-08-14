@@ -1,0 +1,74 @@
+---
+title: "Local quickstart"
+description: "Run the web demo and relay against the deployed Stellar testnet and Sepolia contracts."
+---
+
+## Prerequisites
+
+- Node.js and `pnpm`
+- Rust and the Stellar CLI for contract work
+- MetaMask with Sepolia configured
+- Freighter configured for Stellar testnet
+- Testnet ETH and XLM for source-chain transaction fees
+
+## Configure the application
+
+Create local environment files from the checked-in examples. Keep all secrets outside Git.
+
+The relay recognizes these deployment variables:
+
+```bash
+SEPOLIA_RPC_URL=<sepolia-rpc-url>
+STELLAR_RPC_URL=<stellar-testnet-rpc-url>
+SEPOLIA_MESSAGE_OAPP=0x4e5cEda4702B5568618F238E735f02F0b149c90F
+STELLAR_MESSAGE_OAPP=CCJZEMQQ263PRQZ4ZHDELD62DOQKJQEOXF267TOE45PVWQRXCIMDR6WX
+SEPOLIA_SCAN_START_BLOCK=11488800
+STELLAR_SCAN_START_LEDGER=<configured-start-ledger>
+EVM_PRIVATE_KEY=<testnet-relayer-key>
+STELLAR_RELAYER_SECRET=<testnet-relayer-secret>
+```
+
+For the deployed OApp frontend, configure its public relay endpoint separately:
+
+```bash
+VITE_RELAY_API_URL=https://relay.example.com/api
+```
+
+The local development default uses `/api`, which Vite proxies to `http://localhost:8787`.
+
+<Warning>
+Use dedicated testnet-only keys. Never reuse a mainnet wallet or production signer in the demo relay.
+</Warning>
+
+## Install and run
+
+From `stellar-dvn-app/`:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+The browser application uses **MetaMask** for Sepolia through EIP-6963 provider discovery and **Freighter** for Stellar. The application does not intentionally substitute a hosted wallet for MetaMask.
+
+## Send a message
+
+<Steps>
+  <Step title="Choose the source network">
+    Select Sepolia or Stellar testnet in the web application.
+  </Step>
+  <Step title="Connect the source wallet">
+    Connect MetaMask for Sepolia or Freighter for Stellar testnet.
+  </Step>
+  <Step title="Enter the payload">
+    Enter between 1 and 256 UTF-8 bytes. Multi-line text is supported.
+  </Step>
+  <Step title="Quote and send">
+    The source OApp quotes the LayerZero messaging fee, then the connected source wallet signs the transaction.
+  </Step>
+  <Step title="Observe delivery">
+    The relay verifies, commits, and executes the packet on the destination. Follow the transaction links shown by the UI or use the explorer evidence in this site.
+  </Step>
+</Steps>
+
+The source user pays the source-chain transaction fee and the LayerZero quote. Relay accounts need destination-chain funds to submit testnet verification and execution transactions.

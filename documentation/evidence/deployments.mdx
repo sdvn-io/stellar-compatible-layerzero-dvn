@@ -1,0 +1,27 @@
+---
+title: "Deployment evidence"
+description: "Explorer-linked transactions for message OApp deployment, peer wiring, and security configuration."
+---
+
+## Message OApp deployments
+
+| Action | Transaction | Result |
+| --- | --- | --- |
+| Deploy Sepolia message OApp | [`0x5bd9945f7d32f9131f3604b12cb46f0ff69a35e8f082102cdb2728d6f271977f`](https://sepolia.etherscan.io/tx/0x5bd9945f7d32f9131f3604b12cb46f0ff69a35e8f082102cdb2728d6f271977f) | Contract `0x4e5c...c90F`; gas used `1,303,823` |
+| Upload Stellar message OApp WASM | [`754d30338ea8ab37ee0067abd7ab9c27d6e311872ec08f6669c75cc083479689`](https://stellar.expert/explorer/testnet/tx/754d30338ea8ab37ee0067abd7ab9c27d6e311872ec08f6669c75cc083479689) | WASM hash `282929ed3bdb42f848faa7d5614589936c0a82841e34735f85345dc8bb996c0b` |
+| Deploy Stellar message OApp | [`2d29307b2f759151d59f2218358063929688a77dc5beef41af64f62120f1a872`](https://stellar.expert/explorer/testnet/tx/2d29307b2f759151d59f2218358063929688a77dc5beef41af64f62120f1a872) | Contract `CCJZ...R6WX`, ledger `4141874` |
+
+## Peer and ULN configuration
+
+| Action | Transaction |
+| --- | --- |
+| Sepolia message OApp `setPeer(40600, Stellar OApp)` | [`0x25b99861ba2c95caddfde64d50826ab8d07c073bdd973f01769bbb7996e93a0a`](https://sepolia.etherscan.io/tx/0x25b99861ba2c95caddfde64d50826ab8d07c073bdd973f01769bbb7996e93a0a) |
+| Sepolia Receive ULN configuration | [`0x6ee118db3db6580b1cd25f40eea2f7cf95284aecb865c40fa9379576643b7f2e`](https://sepolia.etherscan.io/tx/0x6ee118db3db6580b1cd25f40eea2f7cf95284aecb865c40fa9379576643b7f2e) |
+| Stellar message OApp `set_peer(40161, Sepolia OApp)` | [`20fbf3572d97402b9eace8af30c4f2b28774a6f9589c1609b2a14a0235ad52dd`](https://stellar.expert/explorer/testnet/tx/20fbf3572d97402b9eace8af30c4f2b28774a6f9589c1609b2a14a0235ad52dd) |
+| Stellar Send ULN custom-DVN configuration | [`fb46fb3449606782be59445e0b135f2273bdda880ff31179afc90ce4a9fe294f`](https://stellar.expert/explorer/testnet/tx/fb46fb3449606782be59445e0b135f2273bdda880ff31179afc90ce4a9fe294f) |
+| Stellar Receive ULN custom-DVN configuration | [`b28730f9ae5748489ccc574de2ec31dfff128c3d58a444a4f4726260dec5931d`](https://stellar.expert/explorer/testnet/tx/b28730f9ae5748489ccc574de2ec31dfff128c3d58a444a4f4726260dec5931d) |
+
+## Deployment manifest
+
+Use `stellar-dvn-e2e/config/networks.json` as the automation source of truth. This page is the human-readable explorer index; scripts should read the JSON manifest rather than scrape documentation.
+

@@ -1,0 +1,48 @@
+---
+title: "Stellar-Compatible LayerZero DVN"
+description: "A deployed testnet implementation of LayerZero verification and arbitrary-message OApps across Stellar and Sepolia."
+---
+
+This repository demonstrates bidirectional arbitrary-message delivery between **Sepolia** and **Stellar testnet** through LayerZero Endpoint V2 infrastructure and a Stellar-compatible Decentralized Verifier Network (DVN).
+
+The deployed demo accepts a UTF-8 string on either chain, transports its exact bytes, and stores the decoded message plus source metadata in the destination OApp. It replaces the earlier counter-only demonstration with an application payload that is easy to inspect and verify.
+
+<CardGroup cols={2}>
+  <Card title="Deployed contracts" icon="cube" href="/documentation/contracts/deployments">
+    Every Stellar and Sepolia address, its role, and its explorer link.
+  </Card>
+  <Card title="End-to-end evidence" icon="circle-check" href="/documentation/evidence/e2e">
+    Source sends, DVN verification, ULN commits, and destination execution transactions.
+  </Card>
+  <Card title="Read the exact message" icon="message" href="/documentation/operations/read-messages">
+    Decode Stellar `Bytes` as UTF-8 or read the Sepolia `string` directly.
+  </Card>
+  <Card title="Nonce recovery" icon="rotate" href="/documentation/operations/nonce-recovery">
+    Understand ordered delivery and the recovery path for missing nonces.
+  </Card>
+</CardGroup>
+
+## Current deployment
+
+| Network | Endpoint ID | Message OApp | Status |
+| --- | ---: | --- | --- |
+| Stellar testnet | `40600` | [`CCJZEMQQ...R6WX`](https://stellar.expert/explorer/testnet/contract/CCJZEMQQ263PRQZ4ZHDELD62DOQKJQEOXF267TOE45PVWQRXCIMDR6WX) | Deployed and tested |
+| Sepolia | `40161` | [`0x4e5cEda4...c90F`](https://sepolia.etherscan.io/address/0x4e5cEda4702B5568618F238E735f02F0b149c90F) | Deployed and tested |
+
+The latest validated route delivered messages in both directions. A later Sepolia-to-Stellar test also demonstrated automatic backfilling of a missing nonce before executing the next packet.
+
+<Warning>
+This is a testnet deployment. The current relay and Sepolia verifier configuration are intended for demonstrations and integration testing, not production custody or production-grade decentralization.
+</Warning>
+
+## What this documentation covers
+
+- Repository layout and local startup
+- DVN, Endpoint, ULN, executor, and OApp responsibilities
+- Complete contract and account inventory
+- Peer and security-stack configuration
+- Exact-message send and read interfaces
+- Ordered nonce behavior and recovery
+- Explorer-linked deployment and delivery evidence
+- Security boundaries and production hardening requirements
+

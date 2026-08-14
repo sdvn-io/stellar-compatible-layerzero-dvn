@@ -1,0 +1,41 @@
+---
+title: "Ordered nonce recovery"
+description: "Diagnose Endpoint Contract #11 and recover a packet blocked behind a missing predecessor."
+---
+
+On the deployed Stellar Endpoint, `Error(Contract, #11)` during `clear` means the destination tried to execute a packet with an invalid next nonce. The common case is that nonce `N + 1` reached execution while nonce `N` was still missing.
+
+## Why verification is not enough
+
+Packet verification and packet execution are separate states. A later packet can be verified and committed, but Endpoint ordering still prevents its `lz_receive` call until every earlier nonce on the same pathway has executed.
+
+## Recovery procedure
+
+<Steps>
+  <Step title="Identify the blocked pathway">
+    Record the source EID, 32-byte sender, destination receiver, GUID, and nonce from the diagnostic event.
+  </Step>
+  <Step title="Find the missing predecessor">
+    Search source `PacketSent` events for the same sender/receiver pathway and nonce `N - 1`.
+  </Step>
+  <Step title="Verify the predecessor">
+    Submit its canonical packet header and payload hash through the configured DVN.
+  </Step>
+  <Step title="Commit the predecessor">
+    After the ULN reports it verifiable, commit its verification on the destination.
+  </Step>
+  <Step title="Execute in order">
+    Execute nonce `N - 1`, then retry nonce `N`.
+  </Step>
+</Steps>
+
+## Relay behavior
+
+The relay scans historical Sepolia `PacketSent` logs, serializes processing for the pathway, and automatically backfills missing predecessors. `SEPOLIA_SCAN_START_BLOCK=11488800` ensures the tested packet range remains discoverable after restart.
+
+This behavior was validated with nonce 5: the relay found and executed missing nonce 4 first, then committed and executed nonce 5. The destination `received_message_count` reached `5`.
+
+## Avoid unsafe shortcuts
+
+Do not bypass peer checks or forge destination state to make counters match. Recovery should replay the authentic source packet through verification, commitment, and ordered Endpoint execution.
+

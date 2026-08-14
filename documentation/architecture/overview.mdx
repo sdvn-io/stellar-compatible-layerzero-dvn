@@ -1,0 +1,51 @@
+---
+title: "Architecture overview"
+description: "How OApps, LayerZero Endpoint V2, ULN302, the custom DVN, and executors fit together."
+---
+
+The system separates message production, verification, commitment, and execution. The DVN attests that a packet is valid; it does not execute the destination OApp call.
+
+```text
+Source OApp
+    │ send(message)
+    ▼
+LayerZero Endpoint V2
+    │ packet + security configuration
+    ▼
+Send ULN302 ─────► DVN verification path
+                       │
+                       ▼
+                 Receive ULN302
+                       │ verified payload hash
+                       ▼
+Destination Endpoint V2
+    │ lzReceive(...)
+    ▼
+Destination OApp
+```
+
+## Component responsibilities
+
+| Component | Responsibility |
+| --- | --- |
+| Message OApp | Accepts a UTF-8 payload, quotes/sends it, validates the configured peer, and stores received content and metadata |
+| Endpoint V2 | Defines the packet pathway, enforces delivery ordering, and invokes the destination receiver |
+| Send ULN302 | Applies the source OApp's outbound security configuration |
+| DVN | Observes packets and supplies verification to the configured destination ULN |
+| Receive ULN302 | Records verification and makes a packet eligible for commitment |
+| Executor | Calls the destination Endpoint after verification and commitment are ready |
+| Relay | Testnet orchestration service that observes events and submits the required cross-chain transactions |
+
+## Network mapping
+
+| Network | LayerZero EID | Native account/address format |
+| --- | ---: | --- |
+| Sepolia | `40161` | 20-byte EVM address, left-padded to `bytes32` when stored as a peer |
+| Stellar testnet | `40600` | StrKey contract address, represented internally by a 32-byte contract ID |
+
+## Trust boundary
+
+The source wallet only authorizes the source-chain send. The relay holds testnet keys that pay for verification and destination execution. The receiving OApp trusts messages only when they arrive through its Endpoint and match its configured remote peer.
+
+The custom Stellar DVN implementation includes threshold-signature and signer-epoch concepts for stronger deployments. The current demo configuration uses a simplified testnet relay path and a Sepolia verifier EOA; these should not be presented as a production validator quorum.
+

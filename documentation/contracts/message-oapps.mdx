@@ -1,0 +1,53 @@
+---
+title: "Message OApps"
+description: "Public send, quote, receive, and message-inspection interfaces on Stellar and Sepolia."
+---
+
+The current OApps transport an application-provided UTF-8 message instead of deriving destination state from a local counter. This means the destination receives the source text itself, including spaces and line breaks.
+
+## Payload constraints
+
+- Minimum: 1 UTF-8 byte
+- Maximum: 256 UTF-8 bytes
+- Encoding: UTF-8
+- Newlines: preserved in the payload
+- Destination state: latest message plus source metadata and cumulative counters
+
+## Stellar interface
+
+| Function | Purpose |
+| --- | --- |
+| `quote` | Quote native fee for a message to the configured destination peer |
+| `send_message` | Send arbitrary UTF-8 bytes through Endpoint V2 |
+| `last_message` | Return the latest payload as Soroban `Bytes` |
+| `last_source_eid` | Return the source LayerZero endpoint ID |
+| `last_sender` | Return the 32-byte source peer |
+| `last_guid` | Return the LayerZero message GUID |
+| `received_message_count` | Return the number of successfully received messages |
+| `sent_message_count` | Return the number of submitted outbound messages |
+
+## Sepolia interface
+
+| Function | Purpose |
+| --- | --- |
+| `quoteMessage` | Quote the native LayerZero messaging fee |
+| `sendMessage` | Send a Solidity `string` to Stellar |
+| `lastMessage` | Return the latest received message as a Solidity `string` |
+| `lastSourceEid` | Return the source LayerZero endpoint ID |
+| `lastSender` | Return the 32-byte source peer |
+| `lastGuid` | Return the LayerZero message GUID |
+| `receivedMessageCount` | Return the number of successfully received messages |
+| `sentMessageCount` | Return the number of submitted outbound messages |
+
+## Receiver validation
+
+Both OApps restrict their LayerZero receive entry point:
+
+1. The caller must be the configured Endpoint.
+2. The packet source EID must have a configured peer.
+3. The packet sender must equal that peer's 32-byte identifier.
+4. Endpoint delivery ordering must accept the nonce.
+5. The message must fit the application payload rules.
+
+These checks prevent an arbitrary account from directly writing destination message state.
+

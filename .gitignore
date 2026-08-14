@@ -1,0 +1,67 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+**/.stellar/
+**/.soroban/
+**/secrets/
+**/keys/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and package-manager state
+**/node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+
+# Generated build output
+**/dist/
+**/build/
+**/target/
+**/artifacts/
+**/cache/
+**/.turbo/
+**/.vercel/
+*.tsbuildinfo
+*.wasm
+*.wasm.gz
+*.wasm.opt
+*.xdr
+
+# Local deployment state; canonical addresses belong in config and README files
+**/deployments/
+**/.deployments-local/
+
+# Workspace-only material
+backups/
+.agents/
+.codex/
+
+# Logs, coverage, and temporary files
+*.log
+**/logs/
+**/coverage/
+lcov.info
+*.tmp
+*.swp
+*.swo
+*~
+
+# IDE and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+official-layerzero-devtools/

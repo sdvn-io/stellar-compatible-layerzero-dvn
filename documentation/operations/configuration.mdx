@@ -1,0 +1,38 @@
+---
+title: "Cross-chain configuration"
+description: "Peers, endpoint IDs, ULN security settings, and relay scan boundaries for the deployed route."
+---
+
+## Endpoint IDs and peers
+
+| Local OApp | Remote EID | Configured remote peer |
+| --- | ---: | --- |
+| Sepolia message OApp | `40600` | Stellar contract ID `0x93923210d7b6f8c33cc9c6458fda1ba0a4c08eb975efcdc4e75f5b4237121838` |
+| Stellar message OApp | `40161` | Left-padded Sepolia address `0x0000000000000000000000004e5ceda4702b5568618f238e735f02f0b149c90f` |
+
+Peer configuration is directional. Setting the Sepolia peer does not configure the Stellar peer; both transactions are required.
+
+## Security-stack configuration
+
+| Direction | Source send configuration | Destination receive configuration |
+| --- | --- | --- |
+| Sepolia → Stellar | Sepolia LayerZero send path | Stellar ULN302 with the custom DVN and 2 confirmations |
+| Stellar → Sepolia | Stellar ULN302 with the custom DVN and 2 confirmations | Sepolia Receive ULN302 with the test verifier EOA and 1 confirmation |
+
+The deployed Stellar configuration transactions are linked in [Deployment evidence](/documentation/evidence/deployments).
+
+## Relay scan boundaries
+
+The relay starts scanning Sepolia at block `11488800` through `SEPOLIA_SCAN_START_BLOCK`. A fixed lower bound prevents a fresh relay process from missing older unexecuted packets after a restart.
+
+The Stellar watcher uses `STELLAR_SCAN_START_LEDGER` for the equivalent boundary. Choose a ledger at or before the first OApp packet that the relay must process.
+
+## Why source and destination counts can differ
+
+The counters measure different events:
+
+- `sentMessageCount` increases when the source OApp successfully submits a packet.
+- `receivedMessageCount` increases only after destination verification, commitment, ordered Endpoint execution, and OApp receipt all succeed.
+
+A count mismatch can therefore mean a packet is in flight, verified but not committed, committed but not executed, blocked by a missing nonce, or permanently failed. Compare GUIDs and pathway nonces rather than assuming the two counters update atomically.
+

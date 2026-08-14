@@ -1,0 +1,62 @@
+---
+title: "Read the actual message"
+description: "Convert Soroban byte output to text and query the native string on Sepolia."
+---
+
+Yes—both deployed OApps expose the latest actual message. Stellar returns the payload as bytes because Soroban's contract interface stores the cross-chain payload without assuming display encoding. Sepolia returns a Solidity string directly.
+
+## Stellar testnet
+
+Invoke `last_message`:
+
+```bash
+stellar contract invoke \
+  --id CCJZEMQQ263PRQZ4ZHDELD62DOQKJQEOXF267TOE45PVWQRXCIMDR6WX \
+  --network testnet \
+  -- \
+  last_message
+```
+
+If the CLI prints hexadecimal bytes such as:
+
+```text
+48656c6c6f206163726f7373204c617965725a65726f
+```
+
+decode the hex as UTF-8:
+
+```bash
+printf '%s' '48656c6c6f206163726f7373204c617965725a65726f' | xxd -r -p
+```
+
+Output:
+
+```text
+Hello across LayerZero
+```
+
+In JavaScript or TypeScript:
+
+```ts
+const message = new TextDecoder().decode(Uint8Array.from(bytes));
+```
+
+Query `last_source_eid`, `last_sender`, `last_guid`, and `received_message_count` alongside the message to identify its origin.
+
+## Sepolia
+
+Read `lastMessage()` from the deployed contract:
+
+```bash
+cast call \
+  0x4e5cEda4702B5568618F238E735f02F0b149c90F \
+  'lastMessage()(string)' \
+  --rpc-url "$SEPOLIA_RPC_URL"
+```
+
+The return value is already decoded text. The related public getters are `lastSourceEid()`, `lastSender()`, `lastGuid()`, and `receivedMessageCount()`.
+
+<Info>
+Diagnostic event logs display `Bytes(...)` because they show the contract ABI value, not because the message was lost or encrypted. UTF-8 decoding restores the original text, including newline byte `0a`.
+</Info>
+

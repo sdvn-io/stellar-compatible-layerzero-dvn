@@ -1,0 +1,47 @@
+---
+title: "Security and production readiness"
+description: "What the testnet demo proves, what it does not prove, and what must change before production use."
+---
+
+The deployment proves cross-environment interoperability and the full verification-to-execution lifecycle on public testnets. It is not a production-ready bridge or production DVN service.
+
+## Security properties demonstrated
+
+- Endpoint-only destination delivery
+- remote-peer validation on both OApps
+- packet and payload-hash verification path
+- ordered nonce enforcement
+- exact payload preservation
+- public explorer audit trail across both networks
+- recovery of authenticated predecessor packets without bypassing Endpoint ordering
+
+## Current testnet limitations
+
+- The Sepolia receive configuration uses a single verifier EOA.
+- Relay keys are online application secrets.
+- Processing state and queues are designed for a demo process, not a highly available service.
+- The relay can pay verification and destination execution costs from its funded accounts.
+- Public testnet RPCs and faucets have no production availability guarantee.
+- The contracts and operational system have not been represented here as independently audited.
+
+## Production hardening checklist
+
+- Deploy and configure an audited EVM DVN or an appropriate multi-verifier quorum.
+- Use independent verifier operators and document the actual threshold and ownership model.
+- Store signing keys in an HSM, KMS, or equivalent isolated signer.
+- Add durable queues, transactional checkpoints, and replay-safe restart behavior.
+- Require source-chain finality appropriate to each network before attestation.
+- Add rate limiting, balance controls, alerting, metrics, and incident procedures.
+- Run redundant RPC providers and independently monitored relay instances.
+- Audit the Soroban contracts, Solidity OApp, relay, deployment scripts, and configuration.
+- Test upgrade, pause, key rotation, signer-epoch, and disaster-recovery procedures.
+- Separate deployer, upgrader, verifier, executor, and treasury roles.
+
+## Operational rules
+
+<Warning>
+Never place `EVM_PRIVATE_KEY`, `STELLAR_RELAYER_SECRET`, Stellar identity files, seed phrases, or RPC credentials in Git. Rotate a credential immediately if it has ever appeared in a commit, log, screenshot, or shared terminal output.
+</Warning>
+
+Contract addresses and transaction hashes should be verified against `stellar-dvn-e2e/config/networks.json` and the linked explorers before every demo or deployment change.
+

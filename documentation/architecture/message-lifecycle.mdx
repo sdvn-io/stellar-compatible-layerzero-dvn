@@ -1,0 +1,48 @@
+---
+title: "Message lifecycle"
+description: "The packet path in both directions, from source-wallet signature through destination execution."
+---
+
+## Sepolia to Stellar
+
+<Steps>
+  <Step title="Send on Sepolia">
+    MetaMask calls `sendMessage` on the Sepolia message OApp. Endpoint V2 emits the outbound packet.
+  </Step>
+  <Step title="Observe and verify">
+    The relay scans Sepolia `PacketSent` logs from the configured start block, reconstructs the packet header and payload hash, and submits verification through the Stellar DVN path.
+  </Step>
+  <Step title="Commit on Stellar">
+    Once the Stellar Receive ULN reports the payload verifiable, the relay commits verification.
+  </Step>
+  <Step title="Execute on Stellar">
+    The Stellar executor calls Endpoint `lz_receive`. Endpoint checks the next inbound nonce and invokes the Stellar OApp.
+  </Step>
+  <Step title="Store the payload">
+    The OApp stores the raw message bytes, GUID, source EID, sender, and received-message count.
+  </Step>
+</Steps>
+
+## Stellar to Sepolia
+
+<Steps>
+  <Step title="Send on Stellar">
+    Freighter authorizes `send_message`. The Stellar OApp asks Endpoint V2 to emit the packet for Sepolia EID `40161`.
+  </Step>
+  <Step title="Verify on Sepolia">
+    The relay observes the Stellar packet and submits its verification to Sepolia Receive ULN302 using the configured test verifier.
+  </Step>
+  <Step title="Commit and execute">
+    The Sepolia Endpoint commits the verified packet, then executes `lzReceive` on the Sepolia message OApp.
+  </Step>
+  <Step title="Store the decoded string">
+    The Solidity receiver decodes the payload as a string and updates its source metadata and counters.
+  </Step>
+</Steps>
+
+## Ordering
+
+LayerZero Endpoint delivery is ordered per pathway. For a tuple of source EID, source sender, and destination receiver, nonce `N + 1` cannot execute before nonce `N`. Verification may happen out of order, but destination execution must close every nonce gap.
+
+This distinction explains why a packet can be successfully sent and verified yet fail destination execution with `InvalidNonce` until its predecessor is delivered.
+

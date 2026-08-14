@@ -1,0 +1,51 @@
+---
+title: "Custom Stellar DVN"
+description: "The verification boundary, signer model, replay controls, and upgrade model of the Stellar-compatible DVN."
+---
+
+The custom Stellar DVN supplies packet verification to the LayerZero ULN path. It treats the application payload as opaque bytes: verification is over packet identity and payload hash, not the semantic meaning of the text.
+
+## Verification flow
+
+```text
+Packet observation
+      │
+      ▼
+Canonical packet header + payload hash
+      │
+      ▼
+Authorized verifier approval
+      │
+      ▼
+DVN verification submission
+      │
+      ▼
+Receive ULN302 verification state
+```
+
+## Contract design capabilities
+
+- secp256k1 verifier identities
+- configurable signer set and threshold
+- duplicate-signer rejection
+- compact `r || s` signatures with recovery identifier
+- high-`s` signature rejection
+- signer epochs to invalidate stale authorization contexts
+- replay-protected verification identities
+- persistent/temporary storage TTL management
+- controlled upgrade path with an enforced delay
+
+The detailed implementation design lives in `layerzero-stellar/docs/ARCHITECTURE.md`.
+
+## Deployed demo configuration
+
+The Stellar message OApp's send and receive ULN configuration points to:
+
+[`CC76R4VVTLV72V55BCW4A35EZPYOY4CVQTTMVXPYGUFX74LDQDZ7GQC3`](https://stellar.expert/explorer/testnet/contract/CC76R4VVTLV72V55BCW4A35EZPYOY4CVQTTMVXPYGUFX74LDQDZ7GQC3)
+
+Both directions use two block/ledger confirmations in the recorded Stellar configuration. Sepolia's demo receive path requires one confirmation from the configured verifier EOA.
+
+<Warning>
+Contract support for threshold authorization does not by itself prove that the current deployment has an independent, production-grade verifier quorum. Review live configuration and signer ownership before making any security claim.
+</Warning>
+
