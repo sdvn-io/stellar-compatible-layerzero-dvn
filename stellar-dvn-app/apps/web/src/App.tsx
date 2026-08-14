@@ -64,7 +64,8 @@ async function getMetaMaskProvider(): Promise<Eip1193Provider> {
 }
 
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const apiBase = (import.meta.env.VITE_RELAY_API_URL as string | undefined)?.replace(/\/$/, "") ?? "/api";
+  const configuredApi = (import.meta.env.VITE_RELAY_API_URL as string | undefined)?.replace(/\/$/, "");
+  const apiBase = configuredApi || (import.meta.env.PROD ? "https://api.sdvn.io/api" : "/api");
   const response = await fetch(`${apiBase}${path}`, {
     ...init,
     headers: { "content-type": "application/json", ...init?.headers },

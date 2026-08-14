@@ -21,9 +21,11 @@ Create two Vercel projects from this repository and set their Root Directories i
 | `sdvn.io` | `stellar-dvn-app/apps/landing` | `apps/landing/vercel.json` |
 | `oapp.sdvn.io` | `stellar-dvn-app/apps/web` | `apps/web/vercel.json` |
 
-Both configurations provide the Vite SPA fallback, immutable caching for hashed assets, and baseline browser security headers. In the OApp Vercel project, set `VITE_RELAY_API_URL` to the public relay base URL including `/api`, for example `https://relay.example.com/api`. The development default remains the local Vite `/api` proxy.
+Both configurations provide the Vite SPA fallback, immutable caching for hashed assets, and baseline browser security headers. The production OApp defaults to `https://api.sdvn.io/api`; `VITE_RELAY_API_URL` can override it at build time. Local development continues to use the Vite `/api` proxy.
 
-Deploy `docs.sdvn.io` through Mintlify with the repository root as the docs directory. It uses `docs.json` and does not require a Vercel route.
+The relay defaults its browser CORS allowlist to `https://oapp.sdvn.io` and `http://localhost:5173`. Override `CORS_ORIGINS` with a comma-separated list when additional trusted frontend origins are required.
+
+Deploy `docs.sdvn.io` through Mintlify as a monorepo project with `/documentation` as the documentation path. That directory contains its own `docs.json` and does not require a Vercel route.
 
 ## What the demo proves
 

@@ -31,10 +31,10 @@ STELLAR_RELAYER_SECRET=<testnet-relayer-secret>
 For the deployed OApp frontend, configure its public relay endpoint separately:
 
 ```bash
-VITE_RELAY_API_URL=https://relay.example.com/api
+VITE_RELAY_API_URL=https://api.sdvn.io/api
 ```
 
-The local development default uses `/api`, which Vite proxies to `http://localhost:8787`.
+Production defaults to `https://api.sdvn.io/api` even when the variable is omitted. Local development uses `/api`, which Vite proxies to `http://localhost:8787`.
 
 <Warning>
 Use dedicated testnet-only keys. Never reuse a mainnet wallet or production signer in the demo relay.
