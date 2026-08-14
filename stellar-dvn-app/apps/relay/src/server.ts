@@ -34,7 +34,13 @@ import {
 import { config } from "./config.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin(origin, callback) {
+    // Allow non-browser clients (curl, scripts, server-to-server) without an Origin header.
+    if (!origin || config.corsOrigins.includes(origin)) callback(null, true);
+    else callback(new Error("Origin not allowed by CORS"));
+  },
+}));
 app.use(express.json({ limit: "2mb" }));
 
 const stellarRpcUrl = process.env.STELLAR_RPC_URL ?? "https://soroban-testnet.stellar.org";

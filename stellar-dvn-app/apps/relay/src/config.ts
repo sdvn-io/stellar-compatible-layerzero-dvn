@@ -31,4 +31,6 @@ export const config = {
   },
   layerZeroScan: "https://testnet.layerzeroscan.com/tx/",
   options: "0x0003010011010000000000000000000000000007a120",
-} as const;
+  corsOrigins: (process.env.CORS_ORIGINS ?? "https://oapp.sdvn.io,https://sdvn.io,http://localhost:5173")
+    .split(",").map((origin) => origin.trim()).filter(Boolean),
+};
