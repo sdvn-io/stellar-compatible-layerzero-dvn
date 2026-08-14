@@ -2,6 +2,7 @@
 
 SERVICE_NAME="sdvn-relay"
 REPO_DIR="git@github.com:sdvn-io/stellar-compatible-layerzero-dvn.git"
+APP_DIR="/home/tinkerpal/stellar-compatible-layerzero-dvn"
 RELAY_DIR="/home/tinkerpal/stellar-compatible-layerzero-dvn/stellar-dvn-app/apps/relay"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
 ENV_FILE="${RELAY_DIR}/.env"
@@ -12,7 +13,7 @@ if [ ! -d "$RELAY_DIR" ]; then
 fi
 
 echo "🔄 Pulling latest changes..."
-cd "$REPO_DIR"
+cd "$RELAY_DIR"
 git pull origin main || echo "⚠️ Git pull failed or not a git repo, continuing..."
 
 if ! command -v pnpm >/dev/null 2>&1; then
@@ -21,7 +22,7 @@ if ! command -v pnpm >/dev/null 2>&1; then
 fi
 
 echo "📦 Installing workspace dependencies..."
-cd "$REPO_DIR/stellar-dvn-app"
+cd "$APP_DIR"
 pnpm install
 
 echo "🏗️  Building the relay..."
