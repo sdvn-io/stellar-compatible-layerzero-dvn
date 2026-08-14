@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 SERVICE_NAME="sdvn-relay"
 REPO_DIR="git@github.com:sdvn-io/stellar-compatible-layerzero-dvn.git"
@@ -20,6 +21,16 @@ if ! command -v pnpm >/dev/null 2>&1; then
   echo "❌ pnpm not found. Run: corepack enable && corepack prepare pnpm@11.20.0 --activate"
   exit 1
 fi
+
+echo "📦 Ensuring repo-pinned pnpm 11.20.0 is usable..."
+PNPM_HOME_V="${PNPM_HOME:-$HOME/.local/share/pnpm}"
+PNPM_TOOL="$PNPM_HOME_V/.tools/@pnpm+linux-x64/11.20.0/bin/pnpm"
+if [ ! -x "$PNPM_TOOL" ]; then
+  echo "⚠️  pnpm 11.20.0 tool missing; repairing..."
+  rm -rf "$PNPM_HOME_V/.tools/@pnpm+linux-x64/11.20.0"
+  (cd "$APP_DIR" && pnpm --version) || { echo "❌ pnpm repair failed"; exit 1; }
+fi
+echo "✅ pnpm: $(pnpm --version)"
 
 echo "📦 Installing workspace dependencies..."
 cd "$APP_DIR"
