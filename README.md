@@ -10,7 +10,7 @@ A working public-testnet implementation of bidirectional LayerZero V2 messaging 
 | --- | --- | --- |
 | Project | [sdvn.io](https://sdvn.io) | Public overview |
 | Message OApp | [oapp.sdvn.io](https://oapp.sdvn.io) | Wallet-connected Stellar/Sepolia demo |
-| Deliverables Roadmap | [View roadmap](https://github.com/sdvn-io/stellar-compatible-layerzero-dvn/blob/main/GRANT_DELIVERABLES_ROADMAP.md) | Testnet and mainnet implementation milestones, acceptance criteria, and grant evidence |
+| Deliverables Roadmap | [View roadmap](https://github.com/sdvn-io/stellar-compatible-layerzero-dvn/blob/main/GRANT_DELIVERABLES_ROADMAP.md) | Testnet and mainnet implementation milestones and acceptance criteria |
 | Relay API | `https://api.sdvn.io/api` | Testnet delivery orchestration |
 
 ## What is implemented
