@@ -343,6 +343,7 @@ Each pathway needs deployment manifests, finality policy, integration tests, fee
 
 Start with the [documentation home](documentation/index.mdx), then review:
 
+- [Grant deliverables roadmap](GRANT_DELIVERABLES_ROADMAP.md)
 - [Architecture overview](documentation/architecture/overview.mdx)
 - [Message lifecycle](documentation/architecture/message-lifecycle.mdx)
 - [Contract deployments](documentation/contracts/deployments.mdx)
