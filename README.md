@@ -169,10 +169,16 @@ The complete infrastructure inventory and transaction evidence are maintained in
 │   ├── deploy/                       # EVM deployment
 │   ├── scripts/                      # Path configuration and relay utilities
 │   └── test/                         # Solidity OApp tests
-└── official-layerzero-devtools/      # Pinned upstream Git reference/worktree
+├── layerzero-stellar/                # Independent SDVN design repository (submodule)
+├── stellar-dvn-reference/            # LayerZero-compatible Stellar source fork (submodule)
+├── official-layerzero-monorepo/      # Pinned upstream protocol source (submodule)
+└── official-layerzero-devtools/      # Pinned upstream developer tooling (submodule)
 ```
 
-The deployed custom Stellar DVN is exercised by this repository, but its complete Soroban implementation and audit-oriented test suite must be published or linked as a reproducible dependency before the repository can independently substantiate all DVN contract security claims.
+The deployed testnet DVN's interface and implementation family are represented by the pinned
+`stellar-dvn-reference` source. The separate `layerzero-stellar/contracts/sdvn` implementation is
+an independent design baseline and is not the code exercised at the deployed DVN address. See the
+deployment evidence for the on-chain WASM hash and current reproducibility status.
 
 ## Run the demo locally
 

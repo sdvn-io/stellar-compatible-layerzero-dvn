@@ -1,0 +1,12 @@
+[submodule "layerzero-stellar"]
+	path = layerzero-stellar
+	url = https://github.com/sdvn-io/layerzero-stellar.git
+[submodule "stellar-dvn-reference"]
+	path = stellar-dvn-reference
+	url = https://github.com/oynktech/stellar-dvn-reference.git
+[submodule "official-layerzero-monorepo"]
+	path = official-layerzero-monorepo
+	url = https://github.com/LayerZero-Labs/monorepo-external.git
+[submodule "official-layerzero-devtools"]
+	path = official-layerzero-devtools
+	url = https://github.com/LayerZero-Labs/devtools.git

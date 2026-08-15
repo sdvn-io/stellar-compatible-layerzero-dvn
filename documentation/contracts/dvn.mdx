@@ -23,7 +23,7 @@ DVN verification submission
 Receive ULN302 verification state
 ```
 
-## Contract design capabilities
+## Independent SDVN design capabilities
 
 - secp256k1 verifier identities
 - configurable signer set and threshold
@@ -35,7 +35,9 @@ Receive ULN302 verification state
 - persistent/temporary storage TTL management
 - controlled upgrade path with an enforced delay
 
-The detailed implementation design lives in `layerzero-stellar/docs/ARCHITECTURE.md`.
+These capabilities describe `layerzero-stellar/contracts/sdvn`. That independent implementation is
+not the contract currently deployed at the demo address. Its detailed design lives in
+`layerzero-stellar/docs/ARCHITECTURE.md`.
 
 ## Deployed demo configuration
 
@@ -45,7 +47,13 @@ The Stellar message OApp's send and receive ULN configuration points to:
 
 Both directions use two block/ledger confirmations in the recorded Stellar configuration. Sepolia's demo receive path requires one confirmation from the configured verifier EOA.
 
+The deployed contract exposes the official Stellar DVN worker and authorization surface, including
+`get_fee`, `assign_job`, `execute_transaction`, and `hash_call_data`. Matching source is pinned in
+`stellar-dvn-reference/contracts/protocol/stellar/contracts/workers/dvn`. The fetched on-chain WASM
+has SHA-256 `082bea3ad75bfef1279b6ca397c407956f52adbc134ae42b0dc74258e376b410`.
+The interface and byte length match the reference build, but the rebuilt hash does not; therefore
+this repository does not claim byte-for-byte source provenance for that deployment.
+
 <Warning>
 Contract support for threshold authorization does not by itself prove that the current deployment has an independent, production-grade verifier quorum. Review live configuration and signer ownership before making any security claim.
 </Warning>
-

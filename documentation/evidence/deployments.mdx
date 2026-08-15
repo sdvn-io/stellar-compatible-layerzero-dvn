@@ -21,7 +21,20 @@ description: "Explorer-linked transactions for message OApp deployment, peer wir
 | Stellar Send ULN custom-DVN configuration | [`fb46fb3449606782be59445e0b135f2273bdda880ff31179afc90ce4a9fe294f`](https://stellar.expert/explorer/testnet/tx/fb46fb3449606782be59445e0b135f2273bdda880ff31179afc90ce4a9fe294f) |
 | Stellar Receive ULN custom-DVN configuration | [`b28730f9ae5748489ccc574de2ec31dfff128c3d58a444a4f4726260dec5931d`](https://stellar.expert/explorer/testnet/tx/b28730f9ae5748489ccc574de2ec31dfff128c3d58a444a4f4726260dec5931d) |
 
+## Stellar DVN artifact provenance
+
+| Evidence | Value |
+| --- | --- |
+| Contract | `CC76R4VVTLV72V55BCW4A35EZPYOY4CVQTTMVXPYGUFX74LDQDZ7GQC3` |
+| Fetched on-chain WASM SHA-256 | `082bea3ad75bfef1279b6ca397c407956f52adbc134ae42b0dc74258e376b410` |
+| Fetched on-chain WASM size | `59,983` bytes |
+| Matching implementation family | `stellar-dvn-reference/contracts/protocol/stellar/contracts/workers/dvn` |
+| Pinned reference commit | `99482e8` (LayerZero package sync 1.2.36 plus interoperability audit/test) |
+
+The fetched contract and rebuilt reference both expose 52 functions and have the same byte length,
+including `get_fee`, `assign_job`, `execute_transaction`, and `hash_call_data`. Their hashes differ,
+so exact byte-for-byte provenance remains unverified and must not be represented as proven.
+
 ## Deployment manifest
 
 Use `stellar-dvn-e2e/config/networks.json` as the automation source of truth. This page is the human-readable explorer index; scripts should read the JSON manifest rather than scrape documentation.
-
