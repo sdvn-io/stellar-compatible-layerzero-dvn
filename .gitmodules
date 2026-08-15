@@ -3,7 +3,7 @@
 	url = https://github.com/sdvn-io/layerzero-stellar.git
 [submodule "stellar-dvn-reference"]
 	path = stellar-dvn-reference
-	url = https://github.com/oynktech/stellar-dvn-reference.git
+	url = https://github.com/sdvn-io/stellar-dvn-reference.git
 [submodule "official-layerzero-monorepo"]
 	path = official-layerzero-monorepo
 	url = https://github.com/LayerZero-Labs/monorepo-external.git
