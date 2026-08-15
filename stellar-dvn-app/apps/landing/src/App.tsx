@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 
 const OAPP_URL = "https://oapp.sdvn.io";
-const DOCS_URL = "https://docs.sdvn.io";
 const GITHUB_URL = "https://github.com/sdvn-io/stellar-compatible-layerzero-dvn";
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
@@ -39,7 +38,7 @@ function App() {
       <nav aria-label="Primary navigation">
         <a href="#network">Network</a>
         <a href="#architecture">Architecture</a>
-        <a href={DOCS_URL} {...external}>Docs <ArrowUpRight size={13} /></a>
+        <a href={GITHUB_URL} {...external}>Docs <ArrowUpRight size={13} /></a>
         <a href={GITHUB_URL} {...external}>GitHub <Github size={13} /></a>
       </nav>
       <a className="nav-cta" href={OAPP_URL} {...external}>
@@ -146,7 +145,7 @@ function App() {
           <p>Launch the testnet OApp to send an exact UTF-8 message between Stellar and Sepolia, then follow each step onchain.</p>
           <div className="hero-actions">
             <a className="button button-primary" href={OAPP_URL} {...external}>Launch OApp <ArrowUpRight size={18} /></a>
-            <a className="text-link" href={DOCS_URL} {...external}>Explore the architecture <ChevronRight size={16} /></a>
+            <a className="text-link" href={GITHUB_URL} {...external}>Explore the architecture <ChevronRight size={16} /></a>
           </div>
         </div>
       </section>
@@ -157,7 +156,7 @@ function App() {
       <p>Stellar-compatible LayerZero verification infrastructure.</p>
       <div>
         <a href={OAPP_URL} {...external}>OApp <ArrowUpRight size={12} /></a>
-        <a href={DOCS_URL} {...external}>Documentation <ArrowUpRight size={12} /></a>
+        <a href={GITHUB_URL} {...external}>Documentation <ArrowUpRight size={12} /></a>
         <a href={GITHUB_URL} {...external}>GitHub <Github size={12} /></a>
       </div>
     </footer>
