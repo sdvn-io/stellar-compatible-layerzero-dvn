@@ -849,4 +849,3 @@ The final grant evidence package should contain:
 17. Activate all required mainnet pathways.
 18. Complete LayerZero metadata integration and official listing.
 19. Begin the 24-month reporting and maintenance program.
-
